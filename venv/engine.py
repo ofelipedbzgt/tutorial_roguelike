@@ -4,8 +4,6 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 import tcod as libtcod
 from input_handlers import handle_keys
 
-# asdf
-
 
 def main():
     screen_width = 80
@@ -28,7 +26,6 @@ def main():
         libtcod.console_set_default_foreground(con, libtcod.white)
         libtcod.console_put_char(con, player_x, player_y, '@', libtcod.BKGND_NONE)
         libtcod.console_blit(con, 0, 0, screen_width, screen_height, 0, 0, 0)
-
         libtcod.console_flush()
 
         action = handle_keys(key)
