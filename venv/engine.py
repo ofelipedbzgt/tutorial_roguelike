@@ -12,7 +12,38 @@ from components.fighter import Fighter
 from death_functions import kill_monster, kill_player
 from game_messages import MessageLog
 
+### font
+
+def load_customfont():
+    # The index of the first custom tile in the file
+    a = 256
+
+
+    # The "y" is the row index, here we load the sixth row in the font file. Increase the "6" to load any new rows from the file
+    for y in range(5, 6):
+        libtcod.console_map_ascii_codes_to_font(a, 32, 0, y)
+        a += 32
+
+
+wall_tile = 256
+floor_tile = 257
+player_tile = 258
+orc_tile = 259
+troll_tile = 260
+scroll_tile = 261
+healingpotion_tile = 262
+sword_tile = 263
+shield_tile = 264
+stairsdown_tile = 265
+dagger_tile = 266
+
+
+###
+
+
 def main():
+    load_customfont()
+
     screen_width = 80
     screen_height = 50
 
@@ -44,12 +75,13 @@ def main():
         'light_wall': libtcod.Color(130, 110, 50),
         'light_ground': libtcod.Color(200, 180, 50)
 }
-    fighter_component = Fighter(hp=30, defense=2, power=5)
-    player = Entity(0, 0, '@', libtcod.white, 'Player', blocks=True,render_order=RenderOrder.ACTOR,
+    fighter_component = Fighter(hp=60, defense=2, power=5)
+    player = Entity(0, 0, player_tile, libtcod.white, 'Player', blocks=True,render_order=RenderOrder.ACTOR,
                     fighter=fighter_component)
     entities = [player]
 
-    libtcod.console_set_custom_font('arial10x10.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_TCOD)
+    libtcod.console_set_custom_font('TiledFont16x16.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_TCOD, 32, 10)
+    #libtcod.console_set_custom_font('arial10x10.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_TCOD)
 
     libtcod.console_init_root(screen_width, screen_height, 'libtcod tutorial revised', False)
     ##############################

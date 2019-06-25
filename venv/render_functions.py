@@ -1,6 +1,29 @@
 import tcod as libtcod
 from enum import Enum
 
+
+def load_customfont():
+    # The index of the first custom tile in the file
+    a = 256
+    libtcod.console_set_custom_font('TiledFont16x16.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_TCOD, 32, 10)
+    # The "y" is the row index, here we load the sixth row in the font file. Increase the "6" to load any new rows from the file
+    for y in range(5, 6):
+        libtcod.console_map_ascii_codes_to_font(a, 32, 0, y)
+        a += 32
+
+wall_tile = 256
+floor_tile = 257
+player_tile = 258
+orc_tile = 259
+troll_tile = 260
+scroll_tile = 261
+healingpotion_tile = 262
+sword_tile = 263
+shield_tile = 264
+stairsdown_tile = 265
+dagger_tile = 266
+
+
 class RenderOrder(Enum):
     CORPSE = 1
     ITEM = 2
@@ -22,6 +45,7 @@ def render_bar(panel, x, y, total_width, name, value, maximum, bar_color, back_c
 
 def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, message_log, screen_width, screen_height,
                bar_width, panel_height, panel_y, mouse, colors):
+    load_customfont()
     if fov_recompute:
         for y in range(game_map.height):
             for x in range(game_map.width):
@@ -30,15 +54,19 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
 
                 if visible:
                     if wall:
-                        libtcod.console_set_char_background(con, x, y, colors.get('light_wall'), libtcod.BKGND_SET)
+                        libtcod.console_put_char_ex(con, x, y, wall_tile, libtcod.white, libtcod.black)
+                        #libtcod.console_set_char_background(con, x, y, colors.get('light_wall'), libtcod.BKGND_SET)
                     else:
-                        libtcod.console_set_char_background(con, x, y, colors.get('light_ground'), libtcod.BKGND_SET)
+                        libtcod.console_put_char_ex(con, x, y, floor_tile, libtcod.white, libtcod.black)
+                        #libtcod.console_set_char_background(con, x, y, colors.get('light_ground'), libtcod.BKGND_SET)
                         game_map.tiles[x][y].explored = True
                 elif game_map.tiles[x][y].explored:
                     if wall:
-                        libtcod.console_set_char_background(con, x, y, colors.get('dark_wall'), libtcod.BKGND_SET)
+                        libtcod.console_put_char_ex(con, x, y, wall_tile, libtcod.grey, libtcod.black)
+                        #libtcod.console_set_char_background(con, x, y, colors.get('dark_wall'), libtcod.BKGND_SET)
                     else:
-                        libtcod.console_set_char_background(con, x, y, colors.get('dark_ground'), libtcod.BKGND_SET)
+                        libtcod.console_put_char_ex(con, x, y, floor_tile, libtcod.grey, libtcod.black)
+                        #libtcod.console_set_char_background(con, x, y, colors.get('dark_ground'), libtcod.BKGND_SET)
 
     entities_in_render_order = sorted(entities, key=lambda x: x.render_order.value)
 

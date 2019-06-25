@@ -7,6 +7,19 @@ from components.ai import BasicMonster
 from components.fighter import Fighter
 from render_functions import RenderOrder
 
+wall_tile = 256
+floor_tile = 257
+player_tile = 258
+orc_tile = 259
+troll_tile = 260
+scroll_tile = 261
+healingpotion_tile = 262
+sword_tile = 263
+shield_tile = 264
+stairsdown_tile = 265
+dagger_tile = 266
+
+
 class GameMap:
     def __init__(self, width, height):
         self.width = width
@@ -108,12 +121,12 @@ class GameMap:
                 if randint(0, 100) < 80:
                     fighter_component = Fighter(hp=10, defense=0, power=3)
                     ai_component = BasicMonster()
-                    monster = Entity(x, y, 'o', libtcod.desaturated_green, 'Orc', blocks=True,
+                    monster = Entity(x, y, orc_tile, libtcod.desaturated_green, 'Orc', blocks=True,
                                      render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
                 else:
                     fighter_component = Fighter(hp=16, defense=1, power=4)
                     ai_component = BasicMonster()
-                    monster = Entity(x, y, 'T', libtcod.darker_green, 'Troll', blocks=True, fighter=fighter_component,
+                    monster = Entity(x, y, troll_tile, libtcod.darker_green, 'Troll', blocks=True, fighter=fighter_component,
                                      render_order=RenderOrder.ACTOR, ai=ai_component)
 
                 entities.append(monster)
