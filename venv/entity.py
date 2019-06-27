@@ -51,6 +51,10 @@ class Entity:
                 get_blocking_entities_at_location(entities, self.x + dx, self.y + dy)):
             self.move(dx, dy)
 
+    def distance(self, x, y):
+        return math.sqrt((x - self.x) ** 2 + (y - self.y) ** 2)
+
+
     def move_astar(self, target, entities, game_map):
         # Create a FOV map that has the dimensions of the map
         fov = libtcod.map_new(game_map.width, game_map.height)
@@ -77,7 +81,7 @@ class Entity:
         libtcod.path_compute(my_path, self.x, self.y, target.x, target.y)
 
         # Check if the path exists, and in this case, also the path is shorter than 25 tiles
-        # The path size matters if you want the monster to use alternative longer paths (for example through other rooms) if for example the player is in a corridor
+        # The path size matters if you want the monster to use alternative longer paths (for example through other rooms) if for example the playerhp is in a corridor
         # It makes sense to keep path size relatively low to keep the monsters from running around the map if there's an alternative path really far away
         if not libtcod.path_is_empty(my_path) and libtcod.path_size(my_path) < 25:
             # Find the next coordinates in the computed full path
