@@ -3,10 +3,15 @@ import tcod as libtcod
 def get_constants():
     window_title = 'Roguelike Tutorial Revised'
     font_file = 'TiledFont16x16.png'
-    # font_file = 'arial10x10.png'
+    font_file_menu = 'arial10x10.png'
 
-    screen_width = 82
-    screen_height = 45
+    main_menu_background_image = 'menu_background.png'
+
+    screen_width = 84
+    screen_height = 42
+
+    map_width = 83
+    map_height = 36
 
     bar_width = 20
     panel_height = 7
@@ -15,9 +20,6 @@ def get_constants():
     message_x = bar_width + 2
     message_width = screen_width - bar_width - 2
     message_height = panel_height - 1
-
-    map_width = 82
-    map_height = 43
 
     room_max_size = 11
     room_min_size = 6
@@ -64,6 +66,8 @@ def get_constants():
     constants = {
         'window_title': window_title,
         'font_file': font_file,
+        'font_file_menu': font_file_menu,
+        'main_menu_background_image': main_menu_background_image,
         'screen_width': screen_width,
         'screen_height': screen_height,
         'bar_width': bar_width,
