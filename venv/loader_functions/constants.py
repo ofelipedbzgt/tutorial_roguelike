@@ -4,14 +4,13 @@ def get_constants():
     window_title = 'Roguelike Tutorial Revised'
     font_file = 'TiledFont16x16.png'
     font_file_menu = 'arial10x10.png'
-
     main_menu_background_image = 'menu_background.png'
 
     screen_width = 84
     screen_height = 42
 
     map_width = 83
-    map_height = 36
+    map_height = 35
 
     bar_width = 20
     panel_height = 7
